@@ -14,25 +14,25 @@ class test_tasks:
     @pytest.mark.flaky(reruns=5, reruns_delay=2)
     def test_task_accepted(self, manager, sleep=1):
         r1 = sleeping.delay(sleep)
-        sleeping.delay(sleep)
+        # sleeping.delay(sleep)
         manager.assert_accepted([r1.id])
 
-    @pytest.mark.flaky(reruns=5, reruns_delay=2)
-    def test_task_retried(self):
-        res = retry_once.delay()
-        assert res.get(timeout=10) == 1  # retried once
-
-    @pytest.mark.flaky(reruns=5, reruns_delay=2)
-    def test_task_retried_priority(self):
-        res = retry_once_priority.apply_async(priority=7)
-        assert res.get(timeout=10) == 7  # retried once with priority 7
-
-    @pytest.mark.flaky(reruns=5, reruns_delay=2)
-    def test_unicode_task(self, manager):
-        manager.join(
-            group(print_unicode.s() for _ in range(5))(),
-            timeout=10, propagate=True,
-        )
+    # @pytest.mark.flaky(reruns=5, reruns_delay=2)
+    # def test_task_retried(self):
+    #     res = retry_once.delay()
+    #     assert res.get(timeout=10) == 1  # retried once
+    #
+    # @pytest.mark.flaky(reruns=5, reruns_delay=2)
+    # def test_task_retried_priority(self):
+    #     res = retry_once_priority.apply_async(priority=7)
+    #     assert res.get(timeout=10) == 7  # retried once with priority 7
+    #
+    # @pytest.mark.flaky(reruns=5, reruns_delay=2)
+    # def test_unicode_task(self, manager):
+    #     manager.join(
+    #         group(print_unicode.s() for _ in range(5))(),
+    #         timeout=10, propagate=True,
+    #     )
 
 
 class tests_task_redis_result_backend:

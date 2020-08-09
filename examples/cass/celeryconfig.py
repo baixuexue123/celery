@@ -1,5 +1,4 @@
 # -*- coding: utf-8 -*-
-from kombu import Queue
 from cassandra.policies import RoundRobinPolicy
 
 broker_url = 'amqp://guest:guest@localhost:5672//'
